@@ -2,7 +2,7 @@ package com.abc;
 
 import java.util.ArrayList;
 import java.util.List;
-
+//To get transactions summary
 public class TransactionSummary {
     private String accountType;
     private List<TransactionDetail> transactions;
@@ -34,7 +34,7 @@ public class TransactionSummary {
         transactions.add(transaction);
     }
 }
-
+//transactions of individual account details
 class TransactionDetail {
     private String type;
     private String amount;

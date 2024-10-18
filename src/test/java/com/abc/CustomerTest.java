@@ -30,7 +30,7 @@ public class CustomerTest {
                 "  withdrawal $200.00\n" +
                 "Total $3,800.00\n" +
                 "\n" +
-                "Total In All Accounts $3,900.00", henry.getStatement());
+                "Total In All Accounts $3,900.00", henry.getTransactionSummary());
     }
 
     @Test

@@ -2,7 +2,7 @@ package com.abc;
 
 import java.util.Calendar;
 import java.util.Date;
-
+//for financial transaction
 public class Transaction {
     public final double amount;
     private Date transactionDate;

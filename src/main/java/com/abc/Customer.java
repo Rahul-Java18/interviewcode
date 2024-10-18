@@ -9,6 +9,9 @@ public class Customer {
     private List<Account> accounts;
 
     public Customer(String name) {
+        if (name == null || name.isEmpty()) {
+            throw new IllegalArgumentException("Customer name cannot be null or empty.");
+        }
         this.name = name;
         this.accounts = new ArrayList<>();
     }
@@ -16,8 +19,11 @@ public class Customer {
     public String getName() {
         return name;
     }
-
+    // Method to open a new account for the customer
     public Customer openAccount(Account account) {
+        if (account == null) {
+            throw new IllegalArgumentException("Account cannot be null.");
+        }
         accounts.add(account);
         return this;
     }
@@ -25,7 +31,7 @@ public class Customer {
     public int getNumberOfAccounts() {
         return accounts.size();
     }
-
+    // Method to calculate the total interest earned across all accounts
     public double totalInterestEarned() {
         double total = 0;
         for (Account a : accounts)
@@ -58,11 +64,11 @@ public class Customer {
             default: return "Unknown Account Type";
         }
     }
-
+//for doller format
     private String toDollars(double d) {
         return String.format("$%,.2f", abs(d));
     }
-
+    // New transfer method to transfer funds between accounts
     public void transfer(Account fromAccount, Account toAccount, double amount) {
         if (fromAccount == null || toAccount == null) {
             throw new IllegalArgumentException("Account cannot be null");
