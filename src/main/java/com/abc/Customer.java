@@ -32,57 +32,37 @@ public class Customer {
             total += a.interestEarned();
         return total;
     }
-
-    public String getStatement() {
-        String statement = "Statement for " + name + "\n";
-        double total = 0.0;
+    public List<TransactionSummary> getTransactionSummary() {
+        List<TransactionSummary> summaries = new ArrayList<>();
         for (Account a : accounts) {
-            statement += "\n" + statementForAccount(a) + "\n";
-            total += a.sumTransactions();
+            TransactionSummary summary = new TransactionSummary(accountTypeName(a));
+            double total = 0.0;
+
+            for (Transaction t : a.transactions) {
+                String type = (t.amount < 0) ? "withdrawal" : "deposit";
+                String amount = toDollars(t.amount);
+                summary.addTransaction(new TransactionDetail(type, amount));
+                total += t.amount;
+            }
+            summary.setTotal(toDollars(total));
+            summaries.add(summary);
         }
-        statement += "\nTotal In All Accounts " + toDollars(total);
-        return statement;
+        return summaries;
     }
-
-    private String statementForAccount(Account a) {
-        String s = "";
-
-        // Translate to pretty account type
-        switch (a.getAccountType()) {
-            case Account.CHECKING:
-                s += "Checking Account\n";
-                break;
-            case Account.SAVINGS:
-                s += "Savings Account\n";
-                break;
-            case Account.MAXI_SAVINGS:
-                s += "Maxi Savings Account\n";
-                break;
-            case Account.SUPER_SAVINGS: // Handle the new account type
-                s += "Super Savings Account\n";
-                break;
+    private String accountTypeName(Account account) {
+        switch (account.getAccountType()) {
+            case Account.CHECKING: return "Checking Account";
+            case Account.SAVINGS: return "Savings Account";
+            case Account.MAXI_SAVINGS: return "Maxi Savings Account";
+            case Account.SUPER_SAVINGS: return "Super Savings Account";
+            default: return "Unknown Account Type";
         }
-
-        // Now total up all the transactions
-        double total = 0.0;
-        for (Transaction t : a.transactions) {
-            s += "  " + (t.amount < 0 ? "withdrawal" : "deposit") + " " + toDollars(t.amount) + "\n";
-            total += t.amount;
-        }
-        s += "Total " + toDollars(total);
-        return s;
     }
 
     private String toDollars(double d) {
         return String.format("$%,.2f", abs(d));
     }
 
-    // New transfer method
-//    public void transfer(Account fromAccount, Account toAccount, double amount) {
-//        fromAccount.withdraw(amount);
-//        toAccount.deposit(amount);
-//    }
-//}
     public void transfer(Account fromAccount, Account toAccount, double amount) {
         if (fromAccount == null || toAccount == null) {
             throw new IllegalArgumentException("Account cannot be null");

@@ -53,8 +53,8 @@ public class Account {
                 if (amount <= 1000)
                     return amount * 0.04; // 2% more than Maxi Savings
                 if (amount <= 2000)
-                    return 20 + (amount - 1000) * 0.07; // 2% more than Maxi Savings
-                return 90 + (amount - 2000) * 0.12; // 2% more than Maxi Savings
+                    return 40 + (amount - 1000) * 0.07; // 2% more than Maxi Savings
+                return 110 + (amount - 2000) * 0.12; // 2% more than Maxi Savings
             default:
                 return amount * 0.001;
         }
