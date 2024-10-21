@@ -17,12 +17,13 @@ public class BankApplication implements CommandLineRunner {
 
         Customer customer = new Customer("John Doe");
         bank.addCustomer(customer);
-
+   //creating different types of accounts to customers
         Account checkingAccount = new Account(Account.CHECKING);
         Account savingsAccount = new Account(Account.SAVINGS);
         Account maxiSavingsAccount = new Account(Account.MAXI_SAVINGS);
         Account superSavingsAccount = new Account(Account.SUPER_SAVINGS);
 
+        //accounts for the customers
         customer.openAccount(checkingAccount);
         customer.openAccount(savingsAccount);
         customer.openAccount(maxiSavingsAccount);
