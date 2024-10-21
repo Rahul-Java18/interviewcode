@@ -22,7 +22,7 @@ public class Account {
     public void deposit(double amount) {
         // to Check that the deposit amount is positive
         if (amount <= 0) {
-            throw new IllegalArgumentException("amount must be greater than zero");
+            throw new IllegalArgumentException("Deposit amount must be greater than zero");
         }
         // Created a new transaction for the deposit and add it to the transactions list
         transactions.add(new Transaction(amount));
@@ -30,7 +30,7 @@ public class Account {
     // Method to withdraw an amount from the account
     public void withdraw(double amount) {
         if (amount <= 0) {
-            throw new IllegalArgumentException("amount must be greater than zero");
+            throw new IllegalArgumentException("Withdraw amount must be greater than zero");
         }
         // CheckING if there are sufficient funds for the withdrawal
         if (sumTransactions() < amount) {
@@ -47,7 +47,11 @@ public class Account {
                 if (amount <= 1000)
                     return amount * 0.001;// 0.1% interest for amounts up to $1000
                 else
+<<<<<<< HEAD
                     return 1 + (amount - 1000) * 0.002; // 0.2% interest for amounts above $1000
+=======
+                    return 1 + (amount - 1000) * 0.002;// 0.2% interest for amounts above $1000
+>>>>>>> 595dc4151318720f3b1092676d28045cf085d9c5
             case MAXI_SAVINGS:
                 if (amount <= 1000)
                     return amount * 0.02;// 2% interest for amounts up to $1000
@@ -56,10 +60,16 @@ public class Account {
                 return 70 + (amount - 2000) * 0.1;// 10% interest for amounts above $2000
             case SUPER_SAVINGS:
                 if (amount <= 1000)
+<<<<<<< HEAD
                     return amount * 0.04; // 4% interest for amounts up to $1000
                 if (amount <= 2000)
                     return 40 + (amount - 1000) * 0.07; // 7% interest for amounts between $1000 and $2000
 
+=======
+                    return amount * 0.04;// 4% interest for amounts up to $1000
+                if (amount <= 2000)
+                    return 40 + (amount - 1000) * 0.07; // 7% interest for amounts between $1000 and $2000
+>>>>>>> 595dc4151318720f3b1092676d28045cf085d9c5
                 return 110 + (amount - 2000) * 0.12; // 12% interest for amounts above $2000
             default:
                 return amount * 0.001;
@@ -81,10 +91,19 @@ public class Account {
         return accountType;
     }
 
+<<<<<<< HEAD
     // // Method to transfer an amount from one account to another
+=======
+    // Method to transfer an amount from one account to another
+>>>>>>> 595dc4151318720f3b1092676d28045cf085d9c5
     public void transfer(Account fromAccount, Account toAccount, double amount) {
+        if (fromAccount == null || toAccount == null) {
+            throw new IllegalArgumentException("Account cannot be null.");
+        }
+        if (amount <= 0) {
+            throw new IllegalArgumentException("Transfer amount must be greater than zero.");
+        }
         fromAccount.withdraw(amount);
         toAccount.deposit(amount);
     }
 }
-

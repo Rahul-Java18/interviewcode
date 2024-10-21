@@ -9,6 +9,9 @@ public class Customer {
     private List<Account> accounts;
 
     public Customer(String name) {
+        if (name == null || name.isEmpty()) {
+            throw new IllegalArgumentException("Customer name cannot be null or empty.");
+        }
         this.name = name;
         this.accounts = new ArrayList<>();
     }
@@ -18,6 +21,9 @@ public class Customer {
     }
     // Method to open a new account for the customer
     public Customer openAccount(Account account) {
+        if (account == null) {
+            throw new IllegalArgumentException("Account cannot be null.");
+        }
         accounts.add(account);
         return this;
     }
@@ -32,6 +38,7 @@ public class Customer {
             total += a.interestEarned();
         return total;
     }
+<<<<<<< HEAD
     // Method to generate a statement detailing all accounts and transactions
     public String getStatement() {
         String statement = "Statement for " + name + "\n";
@@ -39,43 +46,39 @@ public class Customer {
         for (Account a : accounts) {
             statement += "\n" + statementForAccount(a) + "\n";
             total += a.sumTransactions();// Sum the total transactions for all accounts
+=======
+    public List<TransactionSummary> getTransactionSummary() {
+        List<TransactionSummary> summaries = new ArrayList<>();
+        for (Account a : accounts) {
+            TransactionSummary summary = new TransactionSummary(accountTypeName(a));
+            double total = 0.0;
+
+            for (Transaction t : a.transactions) {
+                String type = (t.amount < 0) ? "withdrawal" : "deposit";
+                String amount = toDollars(t.amount);
+                summary.addTransaction(new TransactionDetail(type, amount));
+                total += t.amount;
+            }
+            summary.setTotal(toDollars(total));
+            summaries.add(summary);
+>>>>>>> 595dc4151318720f3b1092676d28045cf085d9c5
         }
-        statement += "\nTotal In All Accounts " + toDollars(total);
-        return statement;
+        return summaries;
     }
-
-    private String statementForAccount(Account a) {
-        String s = "";
-
-        // Translate to pretty account type
-        switch (a.getAccountType()) {
-            case Account.CHECKING:
-                s += "Checking Account\n";
-                break;
-            case Account.SAVINGS:
-                s += "Savings Account\n";
-                break;
-            case Account.MAXI_SAVINGS:
-                s += "Maxi Savings Account\n";
-                break;
-            case Account.SUPER_SAVINGS: // Handle the new account type
-                s += "Super Savings Account\n";
-                break;
+    private String accountTypeName(Account account) {
+        switch (account.getAccountType()) {
+            case Account.CHECKING: return "Checking Account";
+            case Account.SAVINGS: return "Savings Account";
+            case Account.MAXI_SAVINGS: return "Maxi Savings Account";
+            case Account.SUPER_SAVINGS: return "Super Savings Account";
+            default: return "Unknown Account Type";
         }
-
-        // Now total up all the transactions
-        double total = 0.0;
-        for (Transaction t : a.transactions) {
-            s += "  " + (t.amount < 0 ? "withdrawal" : "deposit") + " " + toDollars(t.amount) + "\n";
-            total += t.amount;
-        }
-        s += "Total " + toDollars(total);
-        return s;
     }
 //for doller format
     private String toDollars(double d) {
         return String.format("$%,.2f", abs(d));
     }
+<<<<<<< HEAD
 
     // New transfer method
 //    public void transfer(Account fromAccount, Account toAccount, double amount) {
@@ -83,6 +86,8 @@ public class Customer {
 //        toAccount.deposit(amount);
 //    }
 //}
+=======
+>>>>>>> 595dc4151318720f3b1092676d28045cf085d9c5
     // New transfer method to transfer funds between accounts
     public void transfer(Account fromAccount, Account toAccount, double amount) {
         //checking for null accounts

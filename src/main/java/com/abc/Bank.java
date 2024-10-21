@@ -11,6 +11,9 @@ public class Bank {
     }
     // Method to add a new customer to the bank
     public void addCustomer(Customer customer) {
+        if (customer == null) {
+            throw new IllegalArgumentException("Customer cannot be null.");
+        }
         customers.add(customer);
     }
     // Method to generate a summary of all customers in the bank
